@@ -1,5 +1,8 @@
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,11 +34,13 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',    # for localization
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -107,6 +112,19 @@ USE_I18N = True
 USE_TZ = True
 
 
+# Added manually   
+LANGUAGES = [
+    ('en', _('English')),
+    ('es', _('Spanish')),
+    # ('np', _('Nepali')),
+]
+
+# The LOCALE_PATHS setting specifies the directories where Django has to look for translation files.
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -157,3 +175,12 @@ STRIPE_WEBHOOK_SECRET = 'whsec_67873a505b0c6cee06e27b692301775a5d127071e9d5517bf
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+# Redis settings
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
+
+
+
